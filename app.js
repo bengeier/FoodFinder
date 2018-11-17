@@ -17,6 +17,7 @@ app.get('/', async function (req, res) {
 
 	// Analyze sentiment of reviews
 	var sentiment = new Sentiment()
+	// for review in reviews
 	// var result = sentiment.analyze(review)
 
 	res.send(menu);
