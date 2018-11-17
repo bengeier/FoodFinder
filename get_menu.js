@@ -9,6 +9,7 @@ search_url += "&client_id=" + client_id + "&client_secret=" + client_secret + "&
 
 /** Example to test
  * "name":"Starbucks","latitude":33.4165848044,"longitude":-111.872781158
+ * "name": "Wendy's", "latitude":40.2634088,"longitude":-80.1738737
  */
 
 // Get restaurant menu given name, latitude, and longitude
