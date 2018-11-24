@@ -60,6 +60,15 @@ async function getMenu(client_id, client_secret, restaurant_name, lat, lon) {
 						for (var k = 0; k < menu[i].entries.items[j].entries.count; k++)
 							menu_items.push(menu[i].entries.items[j].entries.items[k].name)
 				
+				// remove tm from item names
+				if (menu_items.length > 0) {
+					for (var i = 0; i < menu_items.length; i++) {
+						if (menu_items[i].indexOf("Tm ") != -1) {
+							menu_items[i] = menu_items[i].replace("Tm ", "");
+						}
+					}
+				}
+
 				return menu_items
 			} else {
 				throw new Error("No menu available")
