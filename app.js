@@ -2,6 +2,7 @@ var express = require('express')
 var Sentiment = require('sentiment')
 
 var { getMenu } = require('./get_menu.js')
+var { rank } = require('./rank.js')
 
 const client_id = "VCRNKCHGA1ZH4ALEJ5TEZPGPUXVKWVPICA1M0J2KF5IBMJ33"
 const client_secret = "GPVYWMMB41WF4VM2JGPK030PXUTCQDHGJEIO30TYATWMV2IF"
