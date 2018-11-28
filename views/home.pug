@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+		title= "Food Finder"
+		link(rel="stylesheet", href="./style.css")
+	body
+		h1= "Food Finder"
+		h2= "Find the most recommended dishes at new restaurants"
+
+		p= "Search for a restaurant and its address"
+		form(method="POST" action="/")
+			div.form-group
+				label(for="name") Restaurant name:
+				input#name.form-control(type="text", value="Starbucks" name="name")
+
+				br
+				
+				label(for="address") Address:
+				input#address.form-control(type="text", value="1717 South Rural Road, Las Vegas, NV 89141, USA" name="address")
+			button.btn(type='submit') Submit
