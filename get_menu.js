@@ -54,7 +54,7 @@ async function getMenu(client_id, client_secret, restaurant_name, lat, lon) {
 			var menu_items = []		// all menu items
 
 			//iterate through menu to get items
-			if (menu.length > 0) {
+			if (menu && menu.length > 0) {
 				for (var i = 0; i < menu.length; i++)
 					for (var j = 0; j < menu[i].entries.count; j++)
 						for (var k = 0; k < menu[i].entries.items[j].entries.count; k++)
