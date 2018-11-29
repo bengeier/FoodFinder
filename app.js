@@ -112,7 +112,6 @@ app.get('/results', async function (req, res) {
 					rated_items[match_results[k][0]] += sent_result.score
 				}
 			}
-			
 		}
 	}
 
@@ -121,7 +120,7 @@ app.get('/results', async function (req, res) {
 	var sorted_results = rank(rated_items)
 
 	// render pug page
-	res.render('results', { menu: menu.toString() });
+	res.render('results', { restaurant_name: restaurant_name, results: sorted_results });
 });
 
 app.listen(3000, function () {

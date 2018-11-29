@@ -3,7 +3,7 @@
 // Assumes input is an object with key as menu items and value as # positive reviews
 // or sum of sentiment score
 function rank(list) {
-	return Object.keys(list).sort(function(a,b) { return list[a] - list[b] })
+	return Object.keys(list).sort(function(a,b) { return list[b] - list[a] })
 }
 
 module.exports = {

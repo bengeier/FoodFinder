@@ -1,7 +1,21 @@
 html
 	head
-		title= "Results"
+		title= "Food Finder Results"
 		link(rel="stylesheet", href="./style.css")
 	body
-		h1= Menu
-		p= menu
+		div.header
+			img(src="./emblem.png")
+			h2= "Find the most recommended dishes at new restaurants"
+
+		div.info-form
+			h1 And the results are in...
+			br
+			br
+			h2 The most popular dishes at #{restaurant_name} (in order of ranking) are
+			br
+
+			ol
+				each item in results
+					li= item
+				else
+					li Everything! (Nobody left any recommendations)
