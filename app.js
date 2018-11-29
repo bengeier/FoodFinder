@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Sentiment = require('sentiment');
 var NodeGeocoder = require('node-geocoder');
+var keyword_extractor = require('keyword-extractor');
+var fuzz = require('fuzzball')
 
 // Imported functions
 var { getMenu } = require('./get_menu.js');
@@ -58,7 +60,6 @@ app.get('/results', async function (req, res) {
 	var lon = req.query.lon;
 
 	// Get restaurant menu
-	console.log("menu")
 	var menu = await getMenu(client_id, client_secret, restaurant_name, lat, lon)
 
 	// If not valid restaurant and location then error
@@ -76,19 +77,50 @@ app.get('/results', async function (req, res) {
 		return
 	}
 
-	// Parse dish names out of reviews
-
-	// Analyze sentiment of reviews
+	// Parse dish names out of reviews and analyze sentiment of review
 	var sentiment = new Sentiment()
-	// for review in reviews
-	// var result = sentiment.analyze(review)
+	var rated_items = {}
+	for (var i = 0; i < reviews.length; i++) {
+		var rev = reviews[i]
+		var extract_result = keyword_extractor.extract(rev, {
+			language: "english",
+			remove_digits: false,
+			return_changed_case: false,
+			return_chained_words: true,
+			remove_duplicates: false
+		})
+
+		// Perform string matching on all results to find any matches with menu items
+		var options = {
+			scorer: fuzz.token_sort_ratio,
+			cutoff: 75
+		}
+		for (var j = 0; j < extract_result.length; j++) {
+			var query = extract_result[j]
+			var match_results = fuzz.extract(query, menu, options)
+
+			if (match_results.length > 0) {
+				// Sentiment analysis of review
+				var sent_result = sentiment.analyze(rev)
+
+				// Add score to item ratings
+				for (var k = 0; k < match_results.length; k++) {
+					if (!rated_items[match_results[k][0]]) {
+						rated_items[match_results[k][0]] = 0
+					}
+
+					rated_items[match_results[k][0]] += sent_result.score
+				}
+			}
+			
+		}
+	}
 
 	// Rank results -- results is object with key is menu item and value is
 	// sum score/# pos. reviews -- e.g. "chicken pasta": 15.2
-	// var sorted_results = rank(results)
+	var sorted_results = rank(rated_items)
 
 	// render pug page
-	console.log("render")
 	res.render('results', { menu: menu.toString() });
 });
 

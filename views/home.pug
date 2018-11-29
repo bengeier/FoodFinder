@@ -4,17 +4,21 @@ html
 		title= "Food Finder"
 		link(rel="stylesheet", href="./style.css")
 	body
-		h1= "Food Finder"
-		h2= "Find the most recommended dishes at new restaurants"
+		div.header
+			img(src="./emblem.png")
+			h2= "Find the most recommended dishes at new restaurants"
 
-		p= "Search for a restaurant and its address"
-		form(method="POST" action="/")
-			div.form-group
-				label(for="name") Restaurant name:
-				input#name.form-control(type="text", value="Starbucks" name="name")
+		div.info-form
+			form(method="POST" action="/")
+				div.form-group
+					div.form-name
+						label(for="name") Restaurant name:
+						input#name.form-control(type="text", value="Starbucks" name="name")
 
-				br
-				
-				label(for="address") Address:
-				input#address.form-control(type="text", value="10520 Southern Highlands Pkwy, Las Vegas, NV 89141, USA" name="address")
-			button.btn(type='submit') Submit
+					
+					div.form-addr
+						label(for="address") Address:
+						input#address.form-control(type="text", value="10520 Southern Highlands Pkwy, Las Vegas, NV 89141, USA" name="address")
+						
+				button.btn(type='submit') 
+					img(src="./search.png")

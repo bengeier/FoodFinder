@@ -6,14 +6,56 @@ p {
 	color: red;
 }
 
-.form-group {
-
+body {
+	background-color: #f1f1d4;
 }
 
-.form-control {
+.header img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+}
+
+h2 {
+	text-align: center;
+}
+
+input, label {
+	display: block;
+}
+
+label {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+input[type=text] {
+	border: 2px solid red;
+	border-radius: 4px;
+	width: 400px;
+}
+
+.form-name {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+
+.form-addr {
+	float: left;
+}
+
+button {
+	background-color: #f1f1d4;
+	border: none;
+	cursor: pointer;
+	float: left;
+	margin-left: 10px;
 	
 }
 
-.btn {
-
+.info-form {
+	margin: 0 auto;
+	width: 500px;
 }
