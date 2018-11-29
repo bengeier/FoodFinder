@@ -1,6 +1,3 @@
-//var business_json = require("./yelp_academic_dataset_business.json")
-//var review_json = require("./yelp_academic_dataset_review.json")
-
 // Want business_id, name, latitude, longitude, categories contains restaurants
 // Want business_id, stars, text
 
