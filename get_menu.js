@@ -29,7 +29,7 @@ async function getMenu(client_id, client_secret, restaurant_name, lat, lon) {
 		}
 
 		// Parse venue id
-		if (results.meta.code == 200) {
+		if (results.meta.code == 200 && results.response.venues.length > 0) {
 			venue_id = results.response.venues[0].id
 		} else {
 			throw new Error("Error fetching venue")
@@ -79,6 +79,7 @@ async function getMenu(client_id, client_secret, restaurant_name, lat, lon) {
 	}
 	catch (error) {
 		console.log(error)
+		return error
 	}
 }
 

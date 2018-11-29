@@ -6,6 +6,7 @@ var NodeGeocoder = require('node-geocoder');
 // Imported functions
 var { getMenu } = require('./get_menu.js');
 var { rank } = require('./rank.js');
+var { getReviews } = require('./get_reviews.js');
 
 // Foursquare API keys
 const client_id = "VCRNKCHGA1ZH4ALEJ5TEZPGPUXVKWVPICA1M0J2KF5IBMJ33"
@@ -49,11 +50,6 @@ app.route('/')
 		}
 	})
 
-/* Sample values for restaurant
- * var lat = "35.9980797"
- * var lon = "-115.2066921"
- * var restaurant_name = "Starbucks"
-*/
 // Search results page
 app.get('/results', async function (req, res) {
 	// Get query variables from url
@@ -62,7 +58,25 @@ app.get('/results', async function (req, res) {
 	var lon = req.query.lon;
 
 	// Get restaurant menu
+	console.log("menu")
 	var menu = await getMenu(client_id, client_secret, restaurant_name, lat, lon)
+
+	// If not valid restaurant and location then error
+	if (menu instanceof Error) {
+		res.send(menu.message + "\nInvalid restaurant and/or address. Please retry.")
+		return
+	}
+
+	// Get restaurant reviews
+	var reviews = await getReviews(restaurant_name)
+
+	// If not valid restaurant and location then error
+	if (reviews instanceof Error) {
+		res.send(reviews.message + "\nInvalid restaurant and/or address. Please retry.")
+		return
+	}
+
+	// Parse dish names out of reviews
 
 	// Analyze sentiment of reviews
 	var sentiment = new Sentiment()
@@ -74,6 +88,7 @@ app.get('/results', async function (req, res) {
 	// var sorted_results = rank(results)
 
 	// render pug page
+	console.log("render")
 	res.render('results', { menu: menu.toString() });
 });
 
